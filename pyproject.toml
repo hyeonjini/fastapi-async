@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "fastapi-async"
+version = "0.1.0"
+description = ""
+authors = ["hyeonjini <choihj94@gmail.com>"]
+readme = "README.md"
+packages = [{include = "fastapi_async"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.98.0"
+uvicorn = "^0.22.0"
+alembic = "^1.11.1"
+sqlalchemy = "^2.0.16"
+python-dotenv = "^1.0.0"
+pydantic = "^1.10.9"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.3.2"
+black = "^23.3.0"
+flake8 = "^6.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
