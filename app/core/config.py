@@ -1,12 +1,13 @@
-from typing import Any, Optional
+from typing import Any, Optional, Dict
 
-from pydantic import AnyHttpUrl, BaseSettings, HttpUrl, PostgresDsn, validator
+from pydantic import AnyHttpUrl, BaseSettings, PostgresDsn, validator
 
 
 class Settings(BaseSettings):
     API_STR: str = "/api/v2"
     SERVER_NAME: str
     SERVER_HOST: AnyHttpUrl
+    SERVER_PORT: int
 
     PROJECT_NAME: str
 
@@ -17,15 +18,17 @@ class Settings(BaseSettings):
     SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn] = None
 
     @validator("SQLALCHEMY_DATABASE_URI", pre=True)
-    def assemble_db_connenction(cls, v: Optional[str], values: Dict[str, Any]) -> Any:
+    def assemble_db_connenction(
+        cls, v: Optional[str], values: Dict[str, Any]
+    ) -> Any:
         if isinstance(v, str):
             return v
         return PostgresDsn.build(
             scheme="postgresql",
-            "user"=values.get("POSTGRES_USER"),
-            "password"=values.get("POSTGRES_PASSWORD"),
-            "host"=values.get("POSTGRES_SERVER"),
-            "path"=f"/{values.get('POSTGRES_DB') or ''}"
+            user=values.get("POSTGRES_USER"),
+            password=values.get("POSTGRES_PASSWORD"),
+            host=values.get("POSTGRES_SERVER"),
+            path=f"/{values.get('POSTGRES_DB') or ''}",
         )
 
     class Config:

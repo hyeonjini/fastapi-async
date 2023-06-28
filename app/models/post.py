@@ -6,7 +6,7 @@ from sqlalchemy.orm import relationship
 from app.db.base_class import Base
 
 if TYPE_CHECKING:
-    from .user import User
+    from .user import User  # noqa
 
 
 class Post(Base):
@@ -15,4 +15,3 @@ class Post(Base):
     contents = Column(String)
     author_id = Column(Integer, ForeignKey("user.id"))
     author = relationship("User", back_populates="posts")
-

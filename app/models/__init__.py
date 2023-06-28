@@ -1,3 +1,2 @@
-from .user import User
-from .post import Post
-
+from .user import User  # noqa
+from .post import Post  # noqa

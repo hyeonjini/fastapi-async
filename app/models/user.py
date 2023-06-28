@@ -6,14 +6,11 @@ from sqlalchemy.orm import relationship
 from app.db.base_class import Base
 
 if TYPE_CHECKING:
-    from .post import Post
+    from .post import Post  # noqa
 
 
 class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     password = Column(String, nullable=False)
-    posts = relationshop("Post", back_populates="author")
-
-
-
+    posts = relationship("Post", back_populates="author")
